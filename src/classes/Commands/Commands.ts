@@ -105,6 +105,12 @@ export default class Commands {
             return this.bot.sendMessage(steamID, "⛔ Don't spam");
         }
 
+        if (message.includes('_')) {
+            const desc = this.bot.helper.getEasyCopyPasteDescriptor(message);
+            this.buyOrSellCommand(steamID, desc.itemName, desc.command as Instant, null);
+            return;
+        }
+
         if (message.startsWith(prefix)) {
             if (command === 'help') {
                 void this.help.helpCommand(steamID, prefix);

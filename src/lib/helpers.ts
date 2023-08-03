@@ -1,3 +1,4 @@
+import EasyCopyPaste, { TransactionDescriptor } from 'easycopypaste';
 import { UnknownDictionaryKnownValues } from '../types/common';
 
 export function exponentialBackoff(n: number, base = 1000): number {
@@ -18,4 +19,16 @@ export function axiosAbortSignal(timeoutMs: number) {
     setTimeout(() => abortController.abort(), timeoutMs || 0);
 
     return abortController.signal;
+}
+
+export default class Helper {
+    private readonly ecp = new EasyCopyPaste();
+
+    public getEasyCopyPasteString(itemName: string, intent: 'buy' | 'sell'): string {
+        return this.ecp.toEasyCopyPasteString(itemName, intent, false);
+    }
+
+    public getEasyCopyPasteDescriptor(easyCopyPasteString: string): TransactionDescriptor {
+        return this.ecp.fromEasyCopyPasteString(easyCopyPasteString);
+    }
 }

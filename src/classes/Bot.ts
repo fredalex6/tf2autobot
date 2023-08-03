@@ -46,7 +46,7 @@ import IPricer from './IPricer';
 import { EventEmitter } from 'events';
 import { Blocked } from './MyHandler/interfaces';
 import filterAxiosError from '@tf2autobot/filter-axios-error';
-import { axiosAbortSignal } from '../lib/helpers';
+import Helper, { axiosAbortSignal } from '../lib/helpers';
 
 export interface SteamTokens {
     refreshToken: string;
@@ -58,6 +58,8 @@ export default class Bot {
     schema: SchemaManager.Schema;
 
     readonly bptf: BptfLogin;
+
+    readonly helper: Helper;
 
     readonly tf2: TF2;
 
@@ -192,6 +194,7 @@ export default class Bot {
             assetCacheMaxItems: 50
         });
 
+        this.helper = new Helper();
         this.bptf = new BptfLogin();
         this.tf2 = new TF2(this.client);
         this.friends = new Friends(this);
